@@ -8,8 +8,9 @@ Future<List<Notes>> getNotes() async {
   final response= await http.get(Uri.parse('http://10.0.2.2:5000/get'));
   var data= jsonDecode(response.body.toString());
   if (response.statusCode==200){
-    for (Map<String, dynamic> index in data){
-      noteList.add(Notes.fromJson(index));
+    for (Map<String, dynamic> note in data){
+      // Creating Notes objects from the JSON data and adding them to the noteList
+      noteList.add(Notes.fromJson(note));
     }
      return noteList;
   }

@@ -1,3 +1,4 @@
+import 'package:app/add_notes.dart';
 import 'package:app/func.dart';
 import 'package:app/update.dart';
 import 'package:flutter/material.dart';
@@ -62,6 +63,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   });
             }
           }),
+          floatingActionButton: FloatingActionButton(onPressed: (){
+            Get.to(const AddNotes());
+          }, 
+          child: Icon(Icons.add, color: Colors.black,),backgroundColor: Colors.green,),
     );
   }
 }

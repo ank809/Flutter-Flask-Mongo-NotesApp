@@ -23,7 +23,7 @@ def get():
 
 
 @app.route('/post', methods=['POST'])
-def post_or_get():
+def post():
     data = {}
     if request.method == 'POST':
         data['title'] = request.json['title']
@@ -39,8 +39,8 @@ def delete(id):
         return 'note successfully deleted'
 
 
-@app.route('/update_or_delete/<string:id>', methods=['PUT'])
-def update_or_delete(id):
+@app.route('/update/<string:id>', methods=['PUT'])
+def update(id):
     noteid = ObjectId(id)
     if request.method == 'PUT':
         mongo.details.find_one_and_update({'_id': noteid}, {'$set': {'title': 'ANKITA'}})
