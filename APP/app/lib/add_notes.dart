@@ -1,7 +1,5 @@
-import 'dart:convert';
-
+import 'package:app/func.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
 class AddNotes extends StatefulWidget {
   const AddNotes({super.key});
@@ -17,9 +15,9 @@ class _AddNotesState extends State<AddNotes> {
     TextEditingController _descController = TextEditingController();
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add your Note'),
+        title: const Text('Add your Note'),
       ),
-      body: Container(
+      body: SizedBox(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child: Container(
@@ -33,14 +31,14 @@ class _AddNotesState extends State<AddNotes> {
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15.0))),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20.0,
               ),
               TextFormField(
                 controller: _descController,
                 decoration: InputDecoration(
                     labelText: 'Description',
-                    labelStyle: TextStyle(
+                    labelStyle: const TextStyle(
                       fontSize: 18.0,
                     ),
                     border: OutlineInputBorder(
@@ -63,17 +61,5 @@ class _AddNotesState extends State<AddNotes> {
         ),
       ),
     );
-  }
-
-  postData(String title, String desc) async {
-    try {
-      var response = await http.post(Uri.parse('http://10.0.2.2:5000/post'),
-      headers: {'Content-Type': 'application/json'},
-          body: jsonEncode({'title': title, 'desc': desc}));
-          print(response.body);
-
-    } catch (e) {
-      print(e);
-    }
   }
 }

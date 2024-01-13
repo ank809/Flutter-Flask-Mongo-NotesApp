@@ -18,3 +18,13 @@ Future<List<Notes>> getNotes() async {
     return [];
   }
   }
+
+    postData(String title, String desc) async {
+    try {
+      var response = await http.post(Uri.parse('http://10.0.2.2:5000/post'),
+      headers: {'Content-Type': 'application/json'},
+          body: jsonEncode({'title': title, 'desc': desc}));
+    } catch (e) {
+      print(e);
+    }
+  }
