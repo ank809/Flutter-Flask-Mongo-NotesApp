@@ -9,7 +9,7 @@ mongo = PyMongo(app).db
 
 @app.route('/get', methods=['GET'])
 def get():
-    if request.method=='GET':
+    if request.method == 'GET':
         todo = []
         notes = mongo.details.find({})
         for note in notes:
@@ -31,22 +31,24 @@ def post():
         mongo.details.insert_one(data)
         return 'note successfully saved'
 
+
 @app.route('/delete/<string:id>', methods=['DELETE'])
 def delete(id):
-    if request.method=='DELETE':
-        mongoid= ObjectId(id)
-        mongo.details.find_one_and_delete({'_id':mongoid})
+    if request.method == 'DELETE':
+        mongoid = ObjectId(id)
+        mongo.details.find_one_and_delete({'_id': mongoid})
         return 'note successfully deleted'
 
 
 @app.route('/update/<string:id>', methods=['PUT'])
 def update(id):
     noteid = ObjectId(id)
+    data = {}
     if request.method == 'PUT':
-        data= request.get_json()
-        new_title= data.get('title')
-        new_desc= data.get('desc')
-        updated_note= mongo.details.find_one_and_update({'_id': noteid}, {'$set': {'title': new_title, 'desc':new_desc}})
+        data['title'] = request.json['title']
+        data['desc'] = request.json['desc']
+        updated_note = mongo.details.find_one_and_update({'_id': noteid},
+                                                         {'$set': {'title': data['title'], 'desc': data['desc']}})
         return jsonify({'id': str(updated_note['_id']),
                         'title': updated_note['title'],
                         'desc': updated_note['desc']})
