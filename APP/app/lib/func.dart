@@ -21,10 +21,11 @@ Future<List<Notes>> getNotes() async {
 postData(String title, String desc) async {
   try {
     var response = await http.post(Uri.parse('http://10.0.2.2:5000/post'),
+    // it specifies the type of content being sent in the request especially in form of JSON
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({'title': title, 'desc': desc}));
   } catch (e) {
-     Get.snackbar('Error', '${e}');
+     Get.snackbar('Error', '$e');
   }
 }
 
@@ -40,7 +41,7 @@ updateData(String title, String desc, String id ) async {
       Get.snackbar('Failed', '${response.statusCode}');
     }
   }catch(e){
-   Get.snackbar('Error', '${e}');
+   Get.snackbar('Error', '$e');
   }
 }
 
