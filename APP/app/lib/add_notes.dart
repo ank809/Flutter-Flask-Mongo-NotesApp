@@ -1,5 +1,7 @@
 import 'package:app/func.dart';
+import 'package:app/home.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class AddNotes extends StatefulWidget {
   const AddNotes({super.key});
@@ -14,14 +16,17 @@ class _AddNotesState extends State<AddNotes> {
     TextEditingController _titleController = TextEditingController();
     TextEditingController _descController = TextEditingController();
     return Scaffold(
+      backgroundColor:  Colors.green,
       appBar: AppBar(
         title: const Text('Add your Note'),
+        backgroundColor: Colors.green.shade400,
       ),
       body: SizedBox(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child: Container(
-          margin: EdgeInsets.all(20.0),
+          
+          margin: const EdgeInsets.all(20.0),
           child: Column(
             children: [
               TextFormField(
@@ -55,7 +60,8 @@ class _AddNotesState extends State<AddNotes> {
                 postData(_titleController.text, _descController.text);
                 _descController.clear();
                 _titleController.clear();
-              }, child: Text('Save'))
+                Get.to(HomeScreen());
+              }, child: const Text('Save'))
             ],
           ),
         ),

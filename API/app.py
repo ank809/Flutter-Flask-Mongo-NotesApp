@@ -16,7 +16,7 @@ def get():
             items = {
                 'id': str(note['_id']),
                 "title": note['title'],
-                "d": note['desc']
+                "desc": note['desc']
             }
             todo.append(items)
         return todo
@@ -43,8 +43,14 @@ def delete(id):
 def update(id):
     noteid = ObjectId(id)
     if request.method == 'PUT':
-        mongo.details.find_one_and_update({'_id': noteid}, {'$set': {'title': 'ANKITA'}})
-        return 'note successfully updated'
+        data= request.get_json()
+        new_title= data.get('title')
+        new_desc= data.get('desc')
+        updated_note= mongo.details.find_one_and_update({'_id': noteid}, {'$set': {'title': new_title, 'desc':new_desc}})
+        return jsonify({'id': str(updated_note['_id']),
+                        'title': updated_note['title'],
+                        'desc': updated_note['desc']})
+        # return 'note successfully updated'
 
 
 @app.route('/get_by_id/<string:id>', methods=['GET'])
